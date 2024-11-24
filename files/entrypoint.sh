@@ -16,7 +16,7 @@ generate_config() {
     },
     "inbounds":[
         {
-            "port":8080,
+            "port":8081,
             "protocol":"vless",
             "settings":{
                 "clients":[
@@ -183,12 +183,19 @@ generate_config() {
     ],
     "dns":{
         "servers":[
-            "https+local://8.8.8.8/dns-query"
+            "8.8.8.8",
+            "8.8.4.4",
+            {
+             "address": "PROXY_IP",
+             "port": 53,
+             "domains": ["geosite:netflix", "geosite:disney", "geosite:google", "geosite:youtube"]
+            }
         ]
     },
     "outbounds":[
         {
-            "protocol":"freedom"
+            "protocol":"freedom",
+            "settings": {"domainStrategy": "UseIP"}
         },
         {
             "tag":"WARP",
