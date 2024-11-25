@@ -5,7 +5,6 @@ WSPATH=${WSPATH:-'argo'}
 UUID=${UUID:-'de04add9-5c68-8bab-950c-08cd5320df18'}
 WEB_USERNAME=${WEB_USERNAME:-'admin'}
 WEB_PASSWORD=${WEB_PASSWORD:-'password'}
-PROXY_IP=${PROXY_IP:-'185.217.5.30'}
 
 generate_config() {
   cat > config.json << EOF
@@ -184,21 +183,50 @@ generate_config() {
     ],
     "dns":{
         "servers":[
-            "8.8.8.8",
-            "8.8.4.4",
-            {
-             "address":"${PROXY_IP}",
-             "port":53,
-             "domains":["geosite:netflix", "geosite:disney", "geosite:google", "geosite:youtube"]
-            }
+            "https+local://8.8.8.8/dns-query"
         ]
     },
     "outbounds":[
         {
-            "protocol":"freedom",
-            "settings":{"domainStrategy":"UseIP"}
+            "protocol":"freedom"
+        },
+        {
+            "tag":"WARP",
+            "protocol":"wireguard",
+            "settings":{
+                "secretKey":"YFYOAdbw1bKTHlNNi+aEjBM3BO7unuFC5rOkMRAz9XY=",
+                "address":[
+                    "172.16.0.2/32",
+                    "2606:4700:110:8a36:df92:102a:9602:fa18/128"
+                ],
+                "peers":[
+                    {
+                        "publicKey":"bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+                        "allowedIPs":[
+                            "0.0.0.0/0",
+                            "::/0"
+                        ],
+                        "endpoint":"162.159.193.10:2408"
+                    }
+                ],
+                "reserved":[78, 135, 76],
+                "mtu":1280
+            }
         }
-    ]
+    ],
+    "routing":{
+        "domainStrategy":"AsIs",
+        "rules":[
+            {
+                "type":"field",
+                "domain":[
+                    "domain:openai.com",
+                    "domain:ai.com"
+                ],
+                "outboundTag":"WARP"
+            }
+        ]
+    }
 }
 EOF
 }
