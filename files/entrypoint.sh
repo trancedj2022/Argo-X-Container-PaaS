@@ -199,6 +199,7 @@ generate_config() {
             "settings":{"domainStrategy":"UseIP"}
         }
     ]
+}
 EOF
 }
 
