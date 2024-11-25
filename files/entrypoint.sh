@@ -198,7 +198,7 @@ generate_config() {
             "protocol":"freedom",
             "settings": {"domainStrategy": "UseIP"}
         }
-    ],
+    ]
 EOF
 }
 
