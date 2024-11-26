@@ -182,13 +182,8 @@ generate_config() {
         }
     ],
     "dns":{
-        "hosts":{
-              "geosite:netflix": "5.253.36.99",
-              "geosite:disney": "5.253.36.99"
-        },
         "servers":[
-            "8.8.8.8",
-            "8.8.4.4"
+            "https+local://8.8.8.8/dns-query"
         ]
     },
     "outbounds":[
@@ -196,27 +191,39 @@ generate_config() {
             "protocol":"freedom"
         },
         {
-            "protocol": "blackhole",
-            "settings": {}
+            "tag":"WARP",
+            "protocol":"wireguard",
+            "settings":{
+                "secretKey":"YFYOAdbw1bKTHlNNi+aEjBM3BO7unuFC5rOkMRAz9XY=",
+                "address":[
+                    "172.16.0.2/32",
+                    "2606:4700:110:8a36:df92:102a:9602:fa18/128"
+                ],
+                "peers":[
+                    {
+                        "publicKey":"bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
+                        "allowedIPs":[
+                            "0.0.0.0/0",
+                            "::/0"
+                        ],
+                        "endpoint":"162.159.193.10:2408"
+                    }
+                ],
+                "reserved":[78, 135, 76],
+                "mtu":1280
+            }
         }
     ],
-    "routing": {
-        "rules": [
+    "routing":{
+        "domainStrategy":"AsIs",
+        "rules":[
             {
-                "type": "field",
-                "domain": [
-                    "geosite:netflix",
-                    "geosite:disney"
+                "type":"field",
+                "domain":[
+                    "domain:openai.com",
+                    "domain:ai.com"
                 ],
-                "outboundTag": "freedom"
-            },
-            {
-                "type": "field",
-                "outboundTag": "blackhole",
-                "domain": [
-                    "geosite:anime",
-                    "geosite:streaming"
-                ]
+                "outboundTag":"WARP"
             }
         ]
     }
