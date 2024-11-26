@@ -184,7 +184,8 @@ generate_config() {
     ],
     "dns":{
         "servers":[
-            "https+local://8.8.8.8/dns-query",
+            "8.8.8.8",
+            "8.8.4.4",
             {
              "address":"${PROXY_IP}",
              "port":53,
