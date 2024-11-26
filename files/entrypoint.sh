@@ -183,12 +183,18 @@ generate_config() {
     ],
     "dns":{
         "servers":[
-            "https+local://8.8.8.8/dns-query"
+            "https+local://8.8.8.8/dns-query",
+            {
+             "address":"${PROXY_IP}",
+             "port":53,
+             "domains":["geosite:netflix", "geosite:disney", "geosite:hbo"]
+            }
         ]
     },
     "outbounds":[
         {
-            "protocol":"freedom"
+            "protocol":"freedom",
+            "settings":{"domainStrategy":"UseIP"}
         }
     ]
 }
