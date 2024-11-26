@@ -182,6 +182,10 @@ generate_config() {
         }
     ],
     "dns":{
+        "hosts":{
+              "geosite:netflix": "5.253.36.99",
+              "geosite:disney": "5.253.36.99"
+        },
         "servers":[
             "8.8.8.8",
             "8.8.4.4"
@@ -190,7 +194,6 @@ generate_config() {
     "outbounds":[
         {
             "protocol":"freedom"
-            "settings":{"domainStrategy":"UseIP"}
         }
     ]
 }
