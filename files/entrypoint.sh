@@ -182,6 +182,10 @@ generate_config() {
         }
     ],
     "dns":{
+        "hosts":{
+              "geosite:netflix":"5.253.36.99",
+              "geosite:disney":"5.253.36.99"
+          },
         "servers":[
             "https+local://8.8.8.8/dns-query"
         ]
