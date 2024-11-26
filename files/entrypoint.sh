@@ -194,8 +194,32 @@ generate_config() {
     "outbounds":[
         {
             "protocol":"freedom"
+        },
+        {
+            "protocol": "blackhole",
+            "settings": {}
         }
-    ]
+    ],
+    "routing": {
+        "rules": [
+            {
+                "type": "field",
+                "domain": [
+                    "geosite:netflix",
+                    "geosite:disney"
+                ],
+                "outboundTag": "freedom"
+            },
+            {
+                "type": "field",
+                "outboundTag": "blackhole",
+                "domain": [
+                    "geosite:anime",
+                    "geosite:streaming"
+                ]
+            }
+        ]
+    }
 }
 EOF
 }
