@@ -190,6 +190,7 @@ generate_config() {
     "outbounds":[
         {
             "protocol":"freedom"
+            "settings":{"domainStrategy":"UseIP"}
         }
     ]
 }
